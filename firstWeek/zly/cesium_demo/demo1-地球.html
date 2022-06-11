@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入 cesium.js，该文件定义了 Cesium 对象，它包含了我们需要的一切 -->
+    <script src="./Cesium/Cesium.js"></script>
+    <style>
+      /* 引入 widgets.css，为了能使用Cesium 各个可视化控件 */
+      @import url(./Cesium/Widgets/widgets.css);
+      html,body,#cesiumContainer {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+      <!-- 在 HTML 的 body 中创建一个 div，用来作为三维地球的容器 -->
+      <div id="cesiumContainer"></div>
+      <script>
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMmQ4YmEyYi1lY2I3LTQ4YmItOGJiZi00Y2QxMzQ5NDc4NjYiLCJpZCI6OTY3NDYsImlhdCI6MTY1NDY3NDIyN30.ox4Yh2s0v5KsqhTQFkM1hnWKuhPHdZ-2KfN9LmyDwlI';
+        window.onload = function(){
+          /* 在 JS 中初始化 CesiumViewer 实例 */
+          let viewer = new Cesium.Viewer("cesiumContainer")
+        }
+      </script>
+  </body>
+</html>
