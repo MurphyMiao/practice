@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- 1.导入js和css文件 -->
+  <script src="https://cesiumjs.org/releases/1.54/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesiumjs.org/releases/1.54/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<body>
+  <!-- 2.创建一个容器 -->
+  <div id="cesiumContainer" style="width: 100%; height:100%"></div>
+  <script>
+    // 3.指定访问令牌
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjYmFjNGFiNi01MjFkLTQ4Y2YtYWQzZi0xNTQ5ODc0MWU3MzMiLCJpZCI6OTcxNzUsImlhdCI6MTY1NTAyNTY2OX0.kjmEtJtrv74Dc6VEdKpzmt0mCtJn_yK0uvcWhXrQFYg';
+    // 4.初始化，指定容器
+    var viewer = new Cesium.Viewer('cesiumContainer');
+  </script>
+</body>
+</html>
