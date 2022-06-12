@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    
+    "noImplicitAny": false,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": false,
+    "types": [
+      "webpack-env",
+      "vue-cesium/global",
+      "vue-cesium/Cesium"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*",
+        "src/api/*",
+        "src/assets/*",
+        "src/components/*",
+        "src/composables/*",
+        "src/config/*",
+        "src/i18n/*",
+        "src/layouts/*",
+        "src/pages/*",
+        "src/router/*",
+        "src/store/*",
+        "src/types/*",
+        "src/utils/*",
+        "node_modules/vue/dist/vue.runtime.esm-bundler.js"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "src/**/*", "typings/*", "node_modules/vue-cesium/Cesium.d.ts", "node_modules/vue-cesium/global.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
