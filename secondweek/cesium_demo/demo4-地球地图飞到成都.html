@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入 cesium.js，该文件定义了 Cesium 对象，它包含了我们需要的一切 -->
+    <script src="./Cesium/Cesium.js"></script>
+    <style>
+      /* 引入 widgets.css，为了能使用Cesium 各个可视化控件 */
+      @import url(./Cesium/Widgets/widgets.css);
+      html,body,#cesiumContainer {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+      <!-- 在 HTML 的 body 中创建一个 div，用来作为三维地球的容器 -->
+      <div id="cesiumContainer">
+        <button onclick="tochengdu()">飞到成都</button>
+        <button onclick="changePic(viewer, Cesium)">切换底图</button>
+      </div>
+      <script>
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMmQ4YmEyYi1lY2I3LTQ4YmItOGJiZi00Y2QxMzQ5NDc4NjYiLCJpZCI6OTY3NDYsImlhdCI6MTY1NDY3NDIyN30.ox4Yh2s0v5KsqhTQFkM1hnWKuhPHdZ-2KfN9LmyDwlI';
+        /* 在 JS 中初始化 CesiumViewer 实例 */
+        let viewer = new Cesium.Viewer("cesiumContainer",{
+          // 添加本地地球地图
+          imageryProvider: new Cesium.SingleTileImageryProvider({
+            url:'./images/world.jpg'
+          })
+        })
+
+        // 飞到成都
+        let tochengdu = () => {
+          viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(104.07, 30.67,10000),
+            pitchAdjustHeight: -90,// 如果摄像机飞越高于该值，则调整俯仰的俯仰角度，并将地球保持在视口中
+            maximumHeight: 5000,// 相机最大飞行高度
+            // flyOverLongitude:100, // 如果到达目的地有2种方式，设置具体值后会强制选择方向飞过这个经度
+          })
+        }
+
+        // 描述初始化选项的对象
+        Cesium.SingleTileImageryProvider.ConstructorOptions
+        
+        var entity = viewer.entities.add({
+            position: Cesium.Cartesian3.fromDegrees(104.07, 30.67),
+            //加载蓝色小圆点
+            point: {
+                color: Cesium.Color.RED,    //点位颜色
+                pixelSize: 5                //像素点大小
+            },
+            //点位
+            billboard: {
+                image: './images/hsq.webp', // default: undefined
+                show: true, // default
+                // 偏移
+                pixelOffset: new Cesium.Cartesian2(10, -10), // default: (0, 0)
+                // eyeOffset: new Cesium.Cartesian3(0.0, 0.0, 0.0), // default
+                horizontalOrigin: Cesium.HorizontalOrigin.LEFT, // default 水平对齐方式
+                verticalOrigin: Cesium.VerticalOrigin.BOTTOM, // default: CENTER  垂直对齐方式
+                // 按距离缩放  即距离大于10000米时，图标不显示
+                scaleByDistance: new Cesium.NearFarScalar(1.5e2, 1, 10000, 0.0),
+                // 放大缩小
+                scale: 2.0, // default: 1.0
+                // color: Cesium.Color.RED, // default: WHITE
+                // 旋转
+                rotation: Cesium.Math.PI_OVER_FOUR, // default: 0.0
+                alignedAxis: Cesium.Cartesian3.ZERO, // default
+                width: 32, // default: undefined
+                height: 32, // default: undefined
+            }
+        })
+
+        let changePic=(viewer, Cesium) => {
+          // 移除地球底图
+          viewer.imageryLayers.removeAll();
+
+          // // 高德地球底图
+          // var imgLayer = new Cesium.UrlTemplateImageryProvider({
+          //   url: 'https://webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
+          // });
+          // viewer.imageryLayers.addImageryProvider(imgLayer);
+
+          // // 高德地球底图
+          // var annLayer = new Cesium.UrlTemplateImageryProvider({
+          //   url: 'http://webst03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8',
+          // });
+          // viewer.imageryLayers.addImageryProvider(annLayer);
+
+          // var annLayer = new Cesium.UrlTemplateImageryProvider({
+          //   url: 'http://t0.tianditu.gov.cn/DataServer?T=img_c&tk=0c320179ed1e4774164cea02bc5e98f8&x={x}&y={y}&l={z1}',
+          // });
+          // viewer.imageryLayers.addImageryProvider(annLayer);
+
+          let provider = new Cesium.UrlTemplateImageryProvider({
+            url:'http://222.73.139.7:8082/tileMap/services/MapServer/img_c@/tile/{z}/{y}/{x}?startLevel=1',
+          })
+          const layer = new Cesium.ImageryLayer(provider)
+          viewer.imageryLayers.add(layer)
+        }
+        // addImageryLayer(viewer, Cesium)
+
+      </script>
+  </body>
+</html>
