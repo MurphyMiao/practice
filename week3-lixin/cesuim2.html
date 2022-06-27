@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./Cesium/Cesium.js"></script>
+    <link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
+</head>
+
+<body>
+    
+    <div id="content" style="width: 100%; height:100%"></div>
+    <script>
+        Cesium.Ion.defaultAccessToken =
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOTU3YmZmMC02ZTYzLTQ0YmItYjlkZS01ZmM3NGUxN2Y0ODQiLCJpZCI6OTY5MDQsImlhdCI6MTY1NDc1ODgzMn0.9cS95JcwmiUpaiwpH-Min4GqwIbXcLSizJO21i6Rx7w';
+        // 构造一个地球
+        let viewer = new Cesium.Viewer("content", {
+            infoBox: false,
+            selectionIndicator: false,
+            shadows: true,
+            shouldAnimate: true,
+        });
+        
+        function createdModel(url,height) {
+
+            const position = Cesium.Cartesian3.fromDegrees(
+                103.9108677463427,
+                30.571441751267486,
+            
+            );
+            const heading = Cesium.Math.toRadians(90);
+            const pitch = 0;
+            const roll = 0;
+            const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
+            const orientation = Cesium.Transforms.headingPitchRollQuaternion(
+                position,
+                hpr
+            );
+
+            const entity = viewer.entities.add({
+                name: url,
+                position: position,
+                orientation: orientation,
+                model: {
+                    uri: './image/build.glb',
+                    minimumPixelSize: 100,  //最小混合尺寸
+                    maximumScale: 1000, //最大规模
+                },
+            });
+            viewer.trackedEntity = entity;
+        }
+        createdModel( './image/build.glb',0)
+    </script>
+</body>
+
+</html>
